@@ -1,5 +1,5 @@
 import type { InferSchemaType, Model } from "mongoose";
-import { model, models, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 
 const SubEvaluation = new Schema({
   subScore: {
@@ -26,9 +26,9 @@ const EvaluationSchema = new Schema({
   country: String,
   visa: String,
   ChancesOfSuccess: {
-    Type: Number,
-    Min: 0,
-    Max: 85
+    type: Number,
+    min: 0,
+    max: 85
   },
   overview: String,
   conclusion: Conclusion,
@@ -46,4 +46,4 @@ const EvaluationSchema = new Schema({
 
 type IEvaluation = InferSchemaType<typeof EvaluationSchema>;
 
-export const Evaluation = (models.Evaluation ?? model<IEvaluation>("evaluation", EvaluationSchema)) as Model<IEvaluation>
+export const Evaluation = (mongoose.models.Evaluation ?? model<IEvaluation>("evaluation", EvaluationSchema)) as Model<IEvaluation>
