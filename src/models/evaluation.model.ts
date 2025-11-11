@@ -1,3 +1,4 @@
+import type { InferSchemaType, Model } from "mongoose";
 import { model, models, Schema } from "mongoose";
 
 const SubEvaluation = new Schema({
@@ -20,6 +21,10 @@ const Conclusion = new Schema({
 }, { _id: false })
 
 const EvaluationSchema = new Schema({
+  name: String,
+  email: String,
+  country: String,
+  visa: String,
   ChancesOfSuccess: {
     Type: Number,
     Min: 0,
@@ -39,4 +44,6 @@ const EvaluationSchema = new Schema({
   }
 }, { timestamps: true })
 
-export const Evaluation = models.Evaluation ?? model("evaluation", EvaluationSchema)
+type IEvaluation = InferSchemaType<typeof EvaluationSchema>;
+
+export const Evaluation = (models.Evaluation ?? model<IEvaluation>("evaluation", EvaluationSchema)) as Model<IEvaluation>
